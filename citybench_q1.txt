@@ -1,0 +1,5 @@
+Assign 101 => CongestionLevelEvent1, 102 => CongestionLevelEvent2, 103 => Warning
+Define Warning := { ssn:sub ssn:pred ?val . }
+From CongestionLevelEvent1 := [select ?val where{?ob ssn:observedProperty ?p. ?p rdf:type ct:CongestionLevel. ?p sao:hasValue ?val. ?ob def:observedBy 182955.}]
+and each CongestionLevelEvent2 := [select ?val where{?ob ssn:observedProperty ?p. ?p rdf:type ct:CongestionLevel. ?p sao:hasValue ?val. ?ob def:observedBy 158505.}] within 3000 from CongestionLevelEvent1
+Where (float)?val := CongestionLevelEvent1.?val ;

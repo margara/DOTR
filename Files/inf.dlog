@@ -1,0 +1,3 @@
+PREFIX a1: <http://localhost#>
+
+a1:haslocation(?X,?Z) :- a1:isattachedto(?X,?Y), a1:isequippedin(?Y,?Z) .

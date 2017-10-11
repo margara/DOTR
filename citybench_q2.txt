@@ -1,0 +1,7 @@
+Assign 101 => CongestionLevelEvent, 102 => TemperatureEvent, 103 => HumidityEvent, 104 => WindSpeedEvent, 105 => Warning
+Define Warning := { ssn:temp sao:hasValue ?temp . ssn:hum sao:hasValue ?hum . ssn:wind sao:hasValue ?wind . }
+From CongestionLevelEvent := [select ?val where{?ob ssn:observedProperty ?p. ?p rdf:type ct:CongestionLevel. ?p sao:hasValue ?val.}]
+and last TemperatureEvent := [select ?val where{?ob ssn:observedProperty ?p. ?p rdf:type ct:Temperature. ?p sao:hasValue ?val.}] within 3000 from CongestionLevelEvent
+and last WindSpeedEvent := [select ?val where{?ob ssn:observedProperty ?p. ?p rdf:type ct:WindSpeed. ?p sao:hasValue ?val.}] within 3000 from CongestionLevelEvent
+and last HumidityEvent := [select ?val where{?ob ssn:observedProperty ?p. ?p rdf:type ct:Humidity. ?p sao:hasValue ?val.}] within 3000 from CongestionLevelEvent
+Where (float)?temp := TemperatureEvent.?val, (float)?hum := HumidityEvent.?val, (float)?wind := WindSpeedEvent.?val  ;

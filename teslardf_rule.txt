@@ -1,0 +1,7 @@
+Assign 34 => Movement, 80 => HighRadiation, 3 => Warning
+Define Warning := {a1:stanza a1:is ?room . a1:radiazioni a1:is ?value . }
+From Movement := [select ?room ?bool where{?sensor a1:senstipo a1:MovSens; a1:haslocation ?room; a1:value ?bool.}]
+and each HighRadiation := [select ?sensor ?room ?value where{?sensor a1:senstipo a1:RadSens; a1:haslocation ?room; a1:value ?value.}](?value > 150) within 600000 from Movement
+With Movement.?room := HighRadiation.?room
+Where (string)?room := Movement.?room, (int)?value := HighRadiation.?value ;
+
